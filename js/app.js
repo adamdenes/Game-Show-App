@@ -62,6 +62,31 @@ document.addEventListener('DOMContentLoaded', () => {
     return match;
   };
 
+  const reset = () => {
+    let newPhrase = null;
+    const button = qwerty.querySelectorAll('button');
+    missed = 0;
+    
+    // generate a new random phrase
+    do {
+      newPhrase = getRandomPhraseAsArray(phrases);
+    } while (phraseArray.join('').includes(newPhrase.join('')));
+
+    // remove every `li` element
+    while (ul.firstElementChild) {
+      ul.removeChild(ul.firstElementChild);
+    }
+
+    // reset button classes & remove disabled state
+    for (let i = 0; i < button.length; i++) {
+      button[i].className = '';
+      button[i].setAttribute('disabled', 'false');
+    }
+
+    // push the phrase to display
+    addPhraseToDisplay(newPhrase);
+  };
+
   /**
    * If all the letters in the phrase are shown, the “win” overlay is shown.
    * If a player makes 5 wrong guesses, the “lose” overlay is shown.
@@ -74,17 +99,26 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.className = 'win';
       overlay.firstElementChild.textContent = 'You Won!';
       overlay.style.display = 'flex';
+      startButton.textContent = 'Play again';
     }
     if (missed > 4) {
       overlay.className = 'lose';
       overlay.firstElementChild.textContent = 'You Lost!';
       overlay.style.display = 'flex';
+      startButton.textContent = 'Try again';
     }
   };
 
   // event listeners
   startButton.addEventListener('click', () => {
     overlay.style.display = 'none';
+
+    if (
+      startButton.textContent === 'Play again' ||
+      startButton.textContent === 'Try again'
+    ) {
+      reset();
+    }
   });
 
   qwerty.addEventListener('click', (e) => {
@@ -104,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     checkWin();
   });
 
+  // display phrase
   const phraseArray = getRandomPhraseAsArray(phrases);
   addPhraseToDisplay(phraseArray);
 });
