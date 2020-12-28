@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (element !== ' ') {
         li.className = 'letter';
+        li.style.transition = 'all .6s ease-in-out';
       } else {
         li.style.padding = '8px';
       }
@@ -61,6 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return match;
   };
 
+  /**
+   * If all the letters in the phrase are shown, the “win” overlay is shown.
+   * If a player makes 5 wrong guesses, the “lose” overlay is shown.
+   */
   const checkWin = () => {
     const liLetter = document.querySelectorAll('li.letter');
     const liShow = document.querySelectorAll('li.show');
