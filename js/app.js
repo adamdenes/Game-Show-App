@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let newPhrase = null;
     const button = qwerty.querySelectorAll('button');
     missed = 0;
-    
+
     // generate a new random phrase
     do {
       newPhrase = getRandomPhraseAsArray(phrases);
@@ -79,12 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // reset button classes & remove disabled state
     for (let i = 0; i < button.length; i++) {
-      button[i].className = '';
-      button[i].setAttribute('disabled', 'false');
+      console.log(button[i]);
     }
 
     // push the phrase to display
     addPhraseToDisplay(newPhrase);
+  };
+
+  const createOverlay = (prop, text, disp) => {
+    overlay.className = prop;
+    overlay.firstElementChild.textContent = text;
+    overlay.style.display = disp;
   };
 
   /**
@@ -96,15 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const liShow = document.querySelectorAll('li.show');
 
     if (liLetter.length === liShow.length) {
-      overlay.className = 'win';
-      overlay.firstElementChild.textContent = 'You Won!';
-      overlay.style.display = 'flex';
+      createOverlay('win', 'You Won!', 'flex');
       startButton.textContent = 'Play again';
     }
     if (missed > 4) {
-      overlay.className = 'lose';
-      overlay.firstElementChild.textContent = 'You Lost!';
-      overlay.style.display = 'flex';
+      createOverlay('lose', 'You Lost!', 'flex');
       startButton.textContent = 'Try again';
     }
   };
