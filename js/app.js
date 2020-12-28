@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const qwerty = document.querySelector('#qwerty');
   const phrase = document.querySelector('#phrase');
   const startButton = document.querySelector('.btn__reset');
+  const overlay = startButton.parentNode;
   const ul = phrase.firstElementChild;
   let missed = 0;
 
@@ -60,14 +61,25 @@ document.addEventListener('DOMContentLoaded', () => {
     return match;
   };
 
-  // const checkWin = () => {
-  //   const liLetter = ;
-  //   const liShow = ;
-  // };
+  const checkWin = () => {
+    const liLetter = document.querySelectorAll('li.letter');
+    const liShow = document.querySelectorAll('li.show');
+
+    if (liLetter.length === liShow.length) {
+      overlay.className = 'win';
+      overlay.firstElementChild.textContent = 'You Won!';
+      overlay.style.display = 'flex';
+    }
+    if (missed > 4) {
+      overlay.className = 'lose';
+      overlay.firstElementChild.textContent = 'You Lost!';
+      overlay.style.display = 'flex';
+    }
+  };
 
   // event listeners
   startButton.addEventListener('click', () => {
-    startButton.parentNode.style.display = 'none';
+    overlay.style.display = 'none';
   });
 
   qwerty.addEventListener('click', (e) => {
@@ -84,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         missed += 1;
       }
     }
+    checkWin();
   });
 
   const phraseArray = getRandomPhraseAsArray(phrases);
