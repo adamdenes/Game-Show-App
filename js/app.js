@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const getRandomPhraseAsArray = (arr) =>
     arr[Math.floor(Math.random() * arr.length)].split('');
 
+  const phraseArray = getRandomPhraseAsArray(phrases);
+
   /**
    * For each character in the array create a list item and append to `#phrase ul` element.
    * @param {Object[]} arr
@@ -80,13 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // reset button classes & remove disabled state
-    for (let i = 0; i < button.length; i++) {
+    for (let i = 0; i < button.length; i += 1) {
       button[i].classList.remove('chosen');
       button[i].disabled = false;
     }
 
     // display images
-    for (let i = 0; i < imgArr.length; i++) {
+    for (let i = 0; i < imgArr.length; i += 1) {
       ol.appendChild(imgArr[i]);
     }
 
@@ -148,6 +150,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // display phrase
-  const phraseArray = getRandomPhraseAsArray(phrases);
   addPhraseToDisplay(phraseArray);
 });
