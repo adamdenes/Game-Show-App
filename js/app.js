@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         li.className = 'letter';
         li.style.transition = 'all .6s ease-in-out';
       } else {
-        li.style.padding = '8px';
+        li.className = 'space';
       }
     });
   };
