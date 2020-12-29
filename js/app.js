@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const startButton = document.querySelector('.btn__reset');
   const overlay = startButton.parentNode;
   const ul = phrase.firstElementChild;
+  const ol = document.querySelector('ol');
+  const imgArr = [];
   let missed = 0;
 
   // phrases array
@@ -79,7 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // reset button classes & remove disabled state
     for (let i = 0; i < button.length; i++) {
-      console.log(button[i]);
+      button[i].classList.remove('chosen');
+      button[i].disabled = false;
+    }
+
+    // display images
+    for (let i = 0; i < imgArr.length; i++) {
+      ol.appendChild(imgArr[i]);
     }
 
     // push the phrase to display
@@ -130,8 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const letterFound = checkLetter(button);
 
       if (!letterFound) {
-        const ol = document.querySelector('ol');
-        const li = ol.querySelector('.tries');
+        const li = document.querySelector('.tries');
+        imgArr.push(li);
         ol.removeChild(li);
         missed += 1;
       }
